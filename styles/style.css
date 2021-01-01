@@ -1,0 +1,48 @@
+@import "reset.css";
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.main {
+    display: grid;
+    grid-template-columns: repeat(3, 200px);
+    grid-template-rows: repeat(3, 200px);
+    height: 600px;
+    width: 600px;
+    border: solid 2px black;
+}
+
+.second {
+    border-right: solid 2px black;
+    border-left: solid 2px black;
+}
+
+.middle {
+    border-top: solid 2px black;
+    border-bottom: solid 2px black;
+}
+
+.text_place {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text_place button {
+    border-radius: 50%;
+    border: none;
+    font-size: 25px;
+}
+

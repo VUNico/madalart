@@ -16,12 +16,21 @@ function setTopic(element) {
     element.addEventListener("submit", handleSubmit);
 }
 
+function paintDetail(text) {
+    const detail = localStorage.getItem("detail");
+    const parsed = JSON.parse(detail);
+    text.innerText = parsed[0].text1;
+}
+
 function paintTopic(text, element) {
     const input = element.querySelector("input");
     const label = element.querySelector("label");    
     input.classList.add(HIDDEN_CN);
     label.classList.add(SHOWING_CN);
     label.innerText = text;
+    if (element.classList.contains("1")) {
+        paintDetail(label);
+    }
 }
 
 function loadTopic(element) {

@@ -1,37 +1,40 @@
-const form = document.querySelector(".js-form"),
-input = form.querySelector("input"),
-label = document.querySelector("h4");
+const form = document.querySelectorAll(".js-form");
 
 const TOPIC_LS = "topic",
 SHOWING_CN = "showing",
 HIDDEN_CN = "hidden";
 
-function setTopic() {
-    form.addEventListener("submit", function(event) {
-        event.preventDefault();
-        const currentValue = input.value;
-        localStorage.setItem(TOPIC_LS, currentValue);
-        paintTopic(currentValue);
-    })
+function handleSubmit(event, element) {
+    const input = element.querySelector("input");
+    event.preventDefault();
+    const currentValue = input.value;
+    localStorage.setItem(TOPIC_LS, currentValue);
+    paintTopic(currentValue);
 }
 
-function paintTopic(text) {
-    form.classList.add(HIDDEN_CN);
+function setTopic(element) {
+    element.addEventListener("submit", handleSubmit);
+}
+
+function paintTopic(text, element) {
+    const input = element.querySelector("input");
+    const label = element.querySelector("label");    
+    input.classList.add(HIDDEN_CN);
     label.classList.add(SHOWING_CN);
     label.innerText = text;
 }
 
-function loadTopic() {
+function loadTopic(element) {
     const topic = localStorage.getItem(TOPIC_LS);
     if (topic === null) {
-        setTopic();
+        setTopic(element);
     } else {
-        paintTopic(topic);
+        paintTopic(topic, element);
     }
 }
 
 function init() {
-    loadTopic();
+    form.forEach(element => loadTopic(element));
 }
 
 init();

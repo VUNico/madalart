@@ -40,12 +40,6 @@ body {
     align-items: center;
 }
 
-.text_place button {
-    border-radius: 50%;
-    border: none;
-    font-size: 25px;
-}
-
 .hidden {
     display: none;
 }

@@ -4,12 +4,19 @@ const TOPIC_LS = "topic",
 SHOWING_CN = "showing",
 HIDDEN_CN = "hidden";
 
+const topics = [];
+
 function handleSubmit(event, element) {
     const input = element.querySelector("input");
-    event.preventDefault();
     const currentValue = input.value;
-    localStorage.setItem(TOPIC_LS, currentValue);
-    paintTopic(currentValue);
+    event.preventDefault();
+    const topicObj = {
+        text:currentValue,
+        id:element.id
+    }
+    topics.push(topicObj);
+    localStorage.setItem(TOPIC_LS, JSON.stringify(topics));
+    paintTopic(topics, element);
 }
 
 function setTopic(element) {
@@ -22,21 +29,19 @@ function paintTopic(text, element) {
     input.classList.add(HIDDEN_CN);
     label.classList.add(SHOWING_CN);
 
-    const topic_array = text;
-    const parsed = JSON.parse(topic_array);
-    if (element.classList.contains("center")) {
-        label.innerText = parsed[0].subject;
-    } else if (element.classList.contains("1")) {
-        label.innerText = parsed[0].detail1;
+    const parsed = JSON.parse(text);
+    const matchedObj = (obj) => obj.id === element.id;
+    if (parsed.some(matchedObj)) {
+        label.innerText = parsed.find(matchedObj).text;
     }
 }
 
 function loadTopic(element) {
-    const topic = localStorage.getItem(TOPIC_LS);
-    if (topic === null) {
+    const lsTopic = localStorage.getItem(TOPIC_LS);
+    if (lsTopic === null) {
         setTopic(element);
     } else {
-        paintTopic(topic, element);
+        paintTopic(lsTopic, element);
     }
 }
 

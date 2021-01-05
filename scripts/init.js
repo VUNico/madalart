@@ -32,15 +32,20 @@ function paintTopic(element, obj) {
 
 function loadTopic(element) {
     const lsTopic = localStorage.getItem(TOPIC_LS);
-    const parsed = JSON.parse(lsTopic);
-    const matchedObj = (obj) => obj.id === element.id;
-    const foundObj = parsed.find(matchedObj);
-    if (foundObj) {
-        paintTopic(element, foundObj);
-    } else {
+    if (!lsTopic) {
         setTopic(element);
+    } else {
+        const parsed = JSON.parse(lsTopic);
+        const matchedObj = (obj) => obj.id === element.id;
+        const foundObj = parsed.find(matchedObj);
+        if (foundObj) {
+            paintTopic(element, foundObj);
+        } else {
+            setTopic(element);
+        }
     }
 }
+    
 
 function init() {
     form.forEach(element => loadTopic(element));

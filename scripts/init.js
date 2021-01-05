@@ -4,7 +4,7 @@ const TOPIC_LS = "topic",
 SHOWING_CN = "showing",
 HIDDEN_CN = "hidden";
 
-const topics = [];
+let topics = [];
 
 function setTopic(element) {
     element.addEventListener("submit", function(event) {
@@ -38,6 +38,7 @@ function loadTopic(element) {
         const parsed = JSON.parse(lsTopic);
         const matchedObj = (obj) => obj.id === element.id;
         const foundObj = parsed.find(matchedObj);
+        topics = parsed;
         if (foundObj) {
             paintTopic(element, foundObj);
         } else {
@@ -46,7 +47,6 @@ function loadTopic(element) {
     }
 }
     
-
 function init() {
     form.forEach(element => loadTopic(element));
 }

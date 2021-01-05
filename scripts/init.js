@@ -6,37 +6,37 @@ HIDDEN_CN = "hidden";
 
 const topics = [];
 
-function handleSubmit(event, element) {
-    const input = element.querySelector("input");
-    const currentValue = input.value;
-    const topicObj = {
-        text:currentValue,
-        id:element.id
-    }
-    event.preventDefault();
-    topics.push(topicObj);
-    localStorage.setItem(TOPIC_LS, JSON.stringify(topics));
-    paintTopic(topics, element);
-}
-
 function setTopic(element) {
-    element.addEventListener("submit", handleSubmit);
+    element.addEventListener("submit", function(event) {
+        event.preventDefault();
+        const input = this.querySelector("input");
+        const currentValue = input.value;
+        const topicObj = {
+            text:currentValue,
+            id:element.id
+        };
+        topics.push(topicObj);
+        console.log(topics);
+        localStorage.setItem(TOPIC_LS, JSON.stringify(topics));
+        paintTopic(element, topicObj);
+    });
 }
 
-function paintTopic(element, topics, matchedObj) {
+function paintTopic(element, obj) {
     const input = element.querySelector("input");
     const label = element.querySelector("label");    
     input.classList.add(HIDDEN_CN);
     label.classList.add(SHOWING_CN);
-    label.innerText = topics.find(matchedObj).text;
+    label.innerText = obj.text;
 }
 
 function loadTopic(element) {
     const lsTopic = localStorage.getItem(TOPIC_LS);
     const parsed = JSON.parse(lsTopic);
     const matchedObj = (obj) => obj.id === element.id;
-    if (parsed.some(matchedObj)) {
-        paintTopic(element, parsed, matchedObj);
+    const foundObj = parsed.find(matchedObj);
+    if (foundObj) {
+        paintTopic(element, foundObj);
     } else {
         setTopic(element);
     }

@@ -9,11 +9,11 @@ const topics = [];
 function handleSubmit(event, element) {
     const input = element.querySelector("input");
     const currentValue = input.value;
-    event.preventDefault();
     const topicObj = {
         text:currentValue,
         id:element.id
     }
+    event.preventDefault();
     topics.push(topicObj);
     localStorage.setItem(TOPIC_LS, JSON.stringify(topics));
     paintTopic(topics, element);
@@ -24,25 +24,22 @@ function setTopic(element) {
 }
 
 function paintTopic(text, element) {
-    const input = element.querySelector("input");
-    const label = element.querySelector("label");    
-    input.classList.add(HIDDEN_CN);
-    label.classList.add(SHOWING_CN);
-
     const parsed = JSON.parse(text);
     const matchedObj = (obj) => obj.id === element.id;
     if (parsed.some(matchedObj)) {
+        const input = element.querySelector("input");
+        const label = element.querySelector("label");    
+        input.classList.add(HIDDEN_CN);
+        label.classList.add(SHOWING_CN);
         label.innerText = parsed.find(matchedObj).text;
+    } else {
+        setTopic(element);
     }
 }
 
 function loadTopic(element) {
     const lsTopic = localStorage.getItem(TOPIC_LS);
-    if (lsTopic === null) {
-        setTopic(element);
-    } else {
-        paintTopic(lsTopic, element);
-    }
+    paintTopic(lsTopic, element);
 }
 
 function init() {

@@ -23,23 +23,23 @@ function setTopic(element) {
     element.addEventListener("submit", handleSubmit);
 }
 
-function paintTopic(text, element) {
-    const parsed = JSON.parse(text);
-    const matchedObj = (obj) => obj.id === element.id;
-    if (parsed.some(matchedObj)) {
-        const input = element.querySelector("input");
-        const label = element.querySelector("label");    
-        input.classList.add(HIDDEN_CN);
-        label.classList.add(SHOWING_CN);
-        label.innerText = parsed.find(matchedObj).text;
-    } else {
-        setTopic(element);
-    }
+function paintTopic(element, topics, matchedObj) {
+    const input = element.querySelector("input");
+    const label = element.querySelector("label");    
+    input.classList.add(HIDDEN_CN);
+    label.classList.add(SHOWING_CN);
+    label.innerText = topics.find(matchedObj).text;
 }
 
 function loadTopic(element) {
     const lsTopic = localStorage.getItem(TOPIC_LS);
-    paintTopic(lsTopic, element);
+    const parsed = JSON.parse(lsTopic);
+    const matchedObj = (obj) => obj.id === element.id;
+    if (parsed.some(matchedObj)) {
+        paintTopic(element, parsed, matchedObj);
+    } else {
+        setTopic(element);
+    }
 }
 
 function init() {

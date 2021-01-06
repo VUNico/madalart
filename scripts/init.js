@@ -28,6 +28,15 @@ function paintTopic(element, obj) {
     input.classList.add(HIDDEN_CN);
     label.classList.add(SHOWING_CN);
     label.innerText = obj.text;
+    const editBtn = document.createElement('button');
+    editBtn.innerHTML = "Edit";
+    element.appendChild(editBtn);
+    editBtn.addEventListener("click", function(event) {
+        event.preventDefault();
+        input.classList.remove(HIDDEN_CN);
+        label.classList.remove(SHOWING_CN);
+        input.value = obj.text;
+    });
 }
 
 function loadTopic(element) {

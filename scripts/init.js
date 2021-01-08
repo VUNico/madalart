@@ -6,13 +6,14 @@ HIDDEN_CN = "hidden";
 
 let topics = [];
 
-function handleEdit(text, objt, element) {
-    console.log(text);
-    const matched = obj => obj.id === objt.id;
-    const found = topics.find(matched);
-    // topics.find(matched).text = text;
-    // localStorage.setItem(TOPIC_LS, JSON.stringify(topics));
-    // paintTopic(element, found);
+function handleEdit(text, element) {
+    if (text) {
+        let found = topics.find(obj => obj.id === element.id)
+        found.text = text;
+        console.log(found);
+        localStorage.setItem(TOPIC_LS, JSON.stringify(topics));
+        paintTopic(element, found);
+    }
 }
 
 function setTopic(element) {
@@ -46,7 +47,7 @@ function paintTopic(element, obj) {
         label.classList.remove(SHOWING_CN);
         let currentValue = input.value;
         input.value = obj.text;
-        handleEdit(currentValue, obj);
+        handleEdit(currentValue, element);
     });
 }
 

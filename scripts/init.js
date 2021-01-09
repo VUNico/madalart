@@ -6,14 +6,14 @@ HIDDEN_CN = "hidden";
 
 let topics = [];
 
-function handleEdit(text, element) {
-    if (text) {
-        let found = topics.find(obj => obj.id === element.id)
-        found.text = text;
-        console.log(found);
+function handleEdit(element) {
+    const input = element.querySelector("input");
+    let found = topics.find(obj => obj.id === element.id);
+    element.addEventListener("submit", function() {
+        found.text = input.value;
         localStorage.setItem(TOPIC_LS, JSON.stringify(topics));
         paintTopic(element, found);
-    }
+    });
 }
 
 function setTopic(element) {
@@ -39,15 +39,15 @@ function paintTopic(element, obj) {
     label.classList.add(SHOWING_CN);
     label.innerText = obj.text;
     const editBtn = document.createElement('button');
-    editBtn.innerHTML = "Edit";
-    element.appendChild(editBtn);
+    editBtn.innerText = "Edit";
+    element.parentElement.appendChild(editBtn);
     editBtn.addEventListener("click", function(event) {
         event.preventDefault();
         input.classList.remove(HIDDEN_CN);
         label.classList.remove(SHOWING_CN);
-        let currentValue = input.value;
         input.value = obj.text;
-        handleEdit(currentValue, element);
+        this.classList.add(HIDDEN_CN);
+        handleEdit(element);
     });
 }
 

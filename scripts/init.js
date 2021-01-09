@@ -26,7 +26,6 @@ function setTopic(element) {
             id:element.id
         };
         topics.push(topicObj);
-        console.log(topics);
         localStorage.setItem(TOPIC_LS, JSON.stringify(topics));
         paintTopic(element, topicObj);
     });
@@ -38,9 +37,8 @@ function paintTopic(element, obj) {
     input.classList.add(HIDDEN_CN);
     label.classList.add(SHOWING_CN);
     label.innerText = obj.text;
-    const editBtn = document.createElement('button');
-    editBtn.innerText = "Edit";
-    element.parentElement.appendChild(editBtn);
+    const editBtn = element.parentElement.querySelector("button");
+    editBtn.classList.remove(HIDDEN_CN);
     editBtn.addEventListener("click", function(event) {
         event.preventDefault();
         input.classList.remove(HIDDEN_CN);

@@ -27,7 +27,7 @@ function setTopic(element) {
         };
         topics.push(topicObj);
         localStorage.setItem(TOPIC_LS, JSON.stringify(topics));
-        paintTopic(element, topicObj);
+        location.reload();
     });
 }
 

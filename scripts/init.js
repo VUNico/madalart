@@ -9,10 +9,11 @@ let topics = [];
 function handleEdit(element) {
     const input = element.querySelector("input");
     let found = topics.find(obj => obj.id === element.id);
-    element.addEventListener("submit", function() {
+    element.addEventListener("submit", function(event) {
+        event.preventDefault();
         found.text = input.value;
         localStorage.setItem(TOPIC_LS, JSON.stringify(topics));
-        paintTopic(element, found);
+        location.reload();
     });
 }
 

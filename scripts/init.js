@@ -1,6 +1,8 @@
 const form = document.querySelectorAll(".js-form");
 
 const TOPIC_LS = "topic",
+BACKGROUND_CN = "background",
+CENTER_CN = "center",
 SHOWING_CN = "showing",
 HIDDEN_CN = "hidden";
 
@@ -34,7 +36,11 @@ function setTopic(element) {
 
 function paintTopic(element, obj) {
     const input = element.querySelector("input");
-    const label = element.querySelector("label");    
+    const label = element.querySelector("label");
+    const background = element.parentElement;
+    if (background.classList.contains(CENTER_CN) == false) {
+        background.classList.add(BACKGROUND_CN);   
+    } 
     input.classList.add(HIDDEN_CN);
     label.classList.add(SHOWING_CN);
     label.innerText = obj.text;
